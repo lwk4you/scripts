@@ -101,7 +101,7 @@ cd $(cd `dirname $0`; pwd)
 # fi
 
 echo -e '"'"'nohup mvn spring-boot:run '${args}' 1>>main.log 2>&1 & echo $! > pid'"'"'
-nohup mvn spring-boot:run '${args}' 1>>main.log 2>&1 & echo $! > pid
+nohup gradle bootRun '${args}' 1>>main.log 2>&1 & echo $! > pid
 
 # 打印main.log日志，持续120秒;通过这个进程来控制tail进程的结束
 sleep 120 & echo $! > tailCtlPid
