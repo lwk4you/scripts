@@ -108,10 +108,10 @@ sleep 120 & echo $! > tailCtlPid
 
 # 打印一段时间的日志，方便远程启动时判定启动是否成功
 tail -f -n 0 --pid=`cat tailCtlPid` main.log | while read line; do
-        if [[ "$line" = "[Application startup: success.]" ]]; then
+        if [[ "$line" =~ "Application startup: success." ]]; then
             cat tailCtlPid | xargs kill -9
             echo "0" > exitCode
-        elif [[ "$line" = "[Application run failed]" ]] || [[ "$line" = "[ERROR]" ]]; then
+        elif [[ "$line" =~ "Application run failed" ]] || [[ "$line" = "[ERROR]" ]]; then
             cat tailCtlPid | xargs kill -9
             echo "-1" > exitCode
         else
